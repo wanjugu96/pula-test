@@ -1,0 +1,402 @@
+{
+  "info": {
+    "_postman_id": "fa58623e-4b3c-4634-af00-2601cf5f392e",
+    "name": "Pula Data",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create&Read",
+      "item": [
+        {
+          "name": "Save areas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const area_generator = function* () {",
+                  "    while(true) {",
+                  "        if(Math.random()>0.9){",
+                  "            return;",
+                  "        }",
+                  "        yield {",
+                  "            average_rainfall: Math.floor(Math.random() * 35) + 150,",
+                  "            average_temperature: Math.floor(Math.random() * 16) + 30,",
+                  "            average_historical_yield: Math.random(),",
+                  "            prior_yield: Math.random(),",
+                  "            zone: Math.random().toString(36).substring(2)",
+                  "        }",
+                  "    }",
+                  "}",
+                  "",
+                  "let body = [];",
+                  "",
+                  "for (const area of area_generator()) {",
+                  "    body.push(area)",
+                  "}",
+                  "",
+                  "pm.environment.set(\"data\", JSON.stringify({objects: body}));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{{data}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/area",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "area"]
+            },
+            "description": "Add areas"
+          },
+          "response": []
+        },
+        {
+          "name": "Get areas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/area",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "area"]
+            },
+            "description": "Get all ecological zones"
+          },
+          "response": []
+        },
+        {
+          "name": "Save farmers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const {url} = pm.request;",
+                  "const link = `${url.protocol}://${url.host[0]}${url.port ? \":\" + url.port : \"\"}`;",
+                  "",
+                  "pm.sendRequest(`${link}/api/area`, function (err, res) {        ",
+                  "            const {payload:{areas}} = res.json()",
+                  "            ",
+                  "            const farmer_generator = function* async () {",
+                  "                while(true) {",
+                  "                    if(Math.random()>0.9){",
+                  "                        return;",
+                  "                    }",
+                  "                    yield {",
+                  "                        area_id: areas[Math.floor(Math.random() * areas.length)].id,",
+                  "                        name: Math.random().toString(36).substring(2)",
+                  "                    }",
+                  "                }",
+                  "            }",
+                  "        let body = [];",
+                  "",
+                  "        for (const farmer of farmer_generator()) {",
+                  "            body.push(farmer)",
+                  "        }",
+                  "        ",
+                  "        pm.environment.set(\"data\", JSON.stringify({objects: body}));",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{{data}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/farmer",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "farmer"]
+            },
+            "description": "Add farmers"
+          },
+          "response": []
+        },
+        {
+          "name": "Get farmers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/farmer",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "farmer"]
+            },
+            "description": "Get all farmers"
+          },
+          "response": []
+        },
+        {
+          "name": "Save harvests",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const {url} = pm.request;",
+                  "const link = `${url.protocol}://${url.host[0]}${url.port ? \":\" + url.port : \"\"}`;",
+                  "",
+                  "pm.sendRequest(`${link}/api/farmer`, function (err, res) {        ",
+                  "            const {payload:{farmers}} = res.json()",
+                  "            ",
+                  "            const harvest_generator = function* async () {",
+                  "                while(true) {",
+                  "                    if(Math.random()>0.9){",
+                  "                        return;",
+                  "                    }",
+                  "                    yield {",
+                  "                        farmer_id: farmers[Math.floor(Math.random() * farmers.length)].id,",
+                  "                        yield: Math.floor(Math.random() * 10) + 100",
+                  "                    }",
+                  "                }",
+                  "            }",
+                  "        let body = [];",
+                  "",
+                  "        for (const harvest of harvest_generator()) {",
+                  "            body.push(harvest)",
+                  "        }",
+                  "        ",
+                  "        pm.environment.set(\"data\", JSON.stringify({objects: body}));",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{{data}}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/harvest",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "harvest"]
+            },
+            "description": "Add harvests"
+          },
+          "response": []
+        },
+        {
+          "name": "Get harvests",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/harvest",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "harvest"]
+            },
+            "description": "Get all harvests"
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request.body}, function (err, res) {",
+              "        pm.test(\"Response time is \" + res.responseTime, function (){",
+              "        pm.expect(err).to.equal(null);",
+              "        pm.expect(res).to.have.property('code', 200);",
+              "        });",
+              "    });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Delete",
+      "item": [
+        {
+          "name": "Clear data",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Hasura-Role",
+                "value": "admin",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"run_sql\",\n    \"args\": {\n        \"sql\": \"TRUNCATE harvests, farmers, areas CASCADE;\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://farmer-data.herokuapp.com/v1/query",
+              "protocol": "https",
+              "host": ["farmer-data", "herokuapp", "com"],
+              "path": ["v1", "query"]
+            },
+            "description": "Clear test data"
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Is database clear\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.result).to.eql(null);",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ]
+}
