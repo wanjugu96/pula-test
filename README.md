@@ -68,9 +68,9 @@ pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request
         pm.expect(res).to.have.property('code', 200);
         });
     }); 
-    ```
-  - Performance tests in Postman collection. Metrics used is the response time.
+```
 
+- Performance tests in Postman collection. Metrics used is the response time.
 
 ## Part Three
 - Clearing data is the last request in the Postman collection. The SQL query is the request body.
