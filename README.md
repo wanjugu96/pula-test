@@ -67,7 +67,8 @@ pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request
         pm.expect(err).to.equal(null);
         pm.expect(res).to.have.property('code', 200);
         });
-    }); ```
+    }); 
+    ```
   - Performance tests in Postman collection. Metrics used is the response time.
 
 
