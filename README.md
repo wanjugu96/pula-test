@@ -33,7 +33,7 @@ Testing is carried out on *Postman* and the API collection is provided on the ro
 
 - pre request script to generate  datasets:
 
-```json
+```javascript
 const {url} = pm.request;
 const link = `${url.protocol}://${url.host[0]}${url.port ? ":" + url.port : ""}`;
 
@@ -67,9 +67,9 @@ pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request
         pm.expect(err).to.equal(null);
         pm.expect(res).to.have.property('code', 200);
         });
-    });```
-    
-    - Performance tests in Postman collection. Metrics used is the response time.
+    });
+    ```
+  - Performance tests in Postman collection. Metrics used is the response time.
 
 
 ## Part Three
