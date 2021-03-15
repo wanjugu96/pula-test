@@ -32,6 +32,35 @@ Testing is carried out on *Postman* and the API collection is provided on the ro
     }
   ```
 - Performance tests in Postman collection. Metrics used is the response time.
+- pre request script to generate  datasets:
+- ```
+- const {url} = pm.request;
+const link = `${url.protocol}://${url.host[0]}${url.port ? ":" + url.port : ""}`;
+
+pm.sendRequest(`${link}/api/area`, function (err, res) {        
+            const {payload:{areas}} = res.json()
+            
+            const farmer_generator = function* async () {
+                while(true) {
+                    if(Math.random()>0.9){
+                        return;
+                    }
+                    yield {
+                        area_id: areas[Math.floor(Math.random() * areas.length)].id,
+                        name: Math.random().toString(36).substring(2)
+                    }
+                }
+            }
+        let body = [];
+
+        for (const farmer of farmer_generator()) {
+            body.push(farmer)
+        }
+        
+        pm.environment.set("data", JSON.stringify({objects: body}));
+});
+
+- ```
 
 ## Part Three
 - Clearing data is the last request in the Postman collection. The SQL query is the request body.
