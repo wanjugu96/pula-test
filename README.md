@@ -73,6 +73,7 @@ pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request
 
 ## Part Three
 - Clearing data is the last request in the Postman collection. The SQL query is the request body.
+
 ```
 {
     "type": "run_sql",
