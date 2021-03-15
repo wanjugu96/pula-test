@@ -30,11 +30,11 @@ Testing is carried out on *Postman* and the API collection is provided on the ro
         "prior_yield":0.5603589464253178,
         "zone":"71dj37vilga"
     }
-  ```
+ ```
 - Performance tests in Postman collection. Metrics used is the response time.
 - pre request script to generate  datasets:
-- ```
-- const {url} = pm.request;
+```
+const {url} = pm.request;
 const link = `${url.protocol}://${url.host[0]}${url.port ? ":" + url.port : ""}`;
 
 pm.sendRequest(`${link}/api/area`, function (err, res) {        
@@ -59,8 +59,17 @@ pm.sendRequest(`${link}/api/area`, function (err, res) {
         
         pm.environment.set("data", JSON.stringify({objects: body}));
 });
+```
+-performance test script:
+```
+pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request.body}, function (err, res) {
+        pm.test("Response time is " + res.responseTime, function (){
+        pm.expect(err).to.equal(null);
+        pm.expect(res).to.have.property('code', 200);
+        });
+    });
+```
 
-- ```
 
 ## Part Three
 - Clearing data is the last request in the Postman collection. The SQL query is the request body.
