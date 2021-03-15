@@ -9,7 +9,12 @@ Testing is carried out on *Postman* and the API collection is provided on the ro
 
 ## Part One
 - The database stores area data, farmer data and harvest data. 
-- The scenarios are defined in the Postman collection.
+- Come up with a minimum of 5 scenarios to validate that the built API captures relevant data and meets quality standards:
+        -The average rainfall need to a value between 150-200
+        -The maximum value for the average temperature should be 45
+        -All the individual table variabkes need to be non-null values
+        
+
 
 ## Part Two
 - JSON payload example:
@@ -30,3 +35,11 @@ Testing is carried out on *Postman* and the API collection is provided on the ro
 
 ## Part Three
 - Clearing data is the last request in the Postman collection. The SQL query is the request body.
+```
+{
+    "type": "run_sql",
+    "args": {
+        "sql": "TRUNCATE harvests, farmers, areas CASCADE;"
+    }
+}
+```
