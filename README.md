@@ -61,7 +61,7 @@ pm.sendRequest(`${link}/api/area`, function (err, res) {
 });
 ```
 -performance test script:
-```
+```json
 pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request.body}, function (err, res) {
         pm.test("Response time is " + res.responseTime, function (){
         pm.expect(err).to.equal(null);
