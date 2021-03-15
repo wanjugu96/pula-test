@@ -29,9 +29,8 @@ Testing is carried out on *Postman* and the API collection is provided on the ro
         "average_historical_yield":0.12648281866129452,
         "prior_yield":0.5603589464253178,
         "zone":"71dj37vilga"
-    }
- ```
-- Performance tests in Postman collection. Metrics used is the response time.
+    }```
+
 - pre request script to generate  datasets:
 
 ```json
@@ -68,9 +67,9 @@ pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request
         pm.expect(err).to.equal(null);
         pm.expect(res).to.have.property('code', 200);
         });
-    });
+    });```
     
-```
+    - Performance tests in Postman collection. Metrics used is the response time.
 
 
 ## Part Three
