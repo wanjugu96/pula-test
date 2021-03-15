@@ -33,8 +33,8 @@ Testing is carried out on *Postman* and the API collection is provided on the ro
  ```
 - Performance tests in Postman collection. Metrics used is the response time.
 - pre request script to generate  datasets:
-```
-const {url} = pm.request;
+
+```const {url} = pm.request;
 const link = `${url.protocol}://${url.host[0]}${url.port ? ":" + url.port : ""}`;
 
 pm.sendRequest(`${link}/api/area`, function (err, res) {        
@@ -68,13 +68,14 @@ pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request
         pm.expect(res).to.have.property('code', 200);
         });
     });
+    
 ```
 
 
 ## Part Three
 - Clearing data is the last request in the Postman collection. The SQL query is the request body.
 
-```
+```json
 {
     "type": "run_sql",
     "args": {
