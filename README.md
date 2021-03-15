@@ -10,9 +10,9 @@ Testing is carried out on *Postman* and the API collection is provided on the ro
 ## Part One
 - The database stores area data, farmer data and harvest data. 
 - Come up with a minimum of 5 scenarios to validate that the built API captures relevant data and meets quality standards:
-        -The average rainfall need to a value between 150-200
-        -The maximum value for the average temperature should be 45
-        -All the individual table variabkes need to be non-null values
+- -The average rainfall need to a value between 150-200
+- -The maximum value for the average temperature should be 45
+- -All the individual table variabkes need to be non-null values
         
 
 
@@ -34,7 +34,8 @@ Testing is carried out on *Postman* and the API collection is provided on the ro
 - Performance tests in Postman collection. Metrics used is the response time.
 - pre request script to generate  datasets:
 
-```const {url} = pm.request;
+```json
+const {url} = pm.request;
 const link = `${url.protocol}://${url.host[0]}${url.port ? ":" + url.port : ""}`;
 
 pm.sendRequest(`${link}/api/area`, function (err, res) {        
