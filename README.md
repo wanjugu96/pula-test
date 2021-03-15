@@ -61,14 +61,13 @@ pm.sendRequest(`${link}/api/area`, function (err, res) {
 });
 ```
 -performance test script:
-```json
+```javascript
 pm.sendRequest({url: pm.request.url, method: pm.request.method, body: pm.request.body}, function (err, res) {
         pm.test("Response time is " + res.responseTime, function (){
         pm.expect(err).to.equal(null);
         pm.expect(res).to.have.property('code', 200);
         });
-    });
-    ```
+    }); ```
   - Performance tests in Postman collection. Metrics used is the response time.
 
 
